@@ -90,6 +90,7 @@
                                 <th>Name</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
+                                <th>Value</th>
                             </thead>
                         <tbody>
                 `;
@@ -98,15 +99,23 @@
                   type: 'GET'
               }).done(function(response){
                 if(response.data.length){
+                    var total = 0
                     $.each(response.data, function(index, product){
+                        var value = product.price * product.quantity
+                        total += value
                         html += '<tr>'
                         html += `<td>${product.id}</td>`
                         html += `<td>${product.name}</td>`
                         html += `<td>${product.quantity}</td>`
                         html += `<td>${product.price}</td>`
+                        html += `<td>${value}</td>`
                         html += '</tr>'
-                        
                     })
+                    html += `<tr>
+                            <td>Total:<td>
+                            <td><td>
+                            <td>${total}<td>
+                        </tr>`
                     html += '</tbody>'
                     html += '</table>'
                     $('#products').html(html)
